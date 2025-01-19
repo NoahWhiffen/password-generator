@@ -4,28 +4,41 @@
 
 // Create a function to generate the password based on provided length.
 
-const process = require('process');
-const arguments = process.argv.slice(2);
+const program = require('process'); 
+const arguments = process.argv.slice(2); 
 
-function generatePassword(arguments) {
-    console.log("Type --numbers to add numbers to your password.");
-    console.log("Type --uppercase to add uppercase letters to your password.");\
-    console.log("Type --symbols to add symbols to your password.");
-    for (let i = 0; i < arguments.length; i++) {
-        if (arguments[i] === '--numbers') {
-            // generate numbers
-        }
-        if (arguments[i] === '--uppercase') {
-            // generate uppercase
-        }
-        if (arguments[i] === '--symbols') {
-            // generate symbols
-        }
-        else {
-            console.log("Invalid Flag. Please see instructions above.");
-        }
+const alpha = 'abcdefghijklmnopqrstuvwxyz';
+const numbers = '0123456789';
+const symbols = '!@#$%^&*()_-+=;:?.,<>';
+const upperAlpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+function generatePassword(length, includeNumbers, includeUpper, includeSymbols) {
+    let characters = alpha;
+
+    if (includeNumbers) {
+        characters += numbers;
     }
+
+    if (includeUpper) {
+        characters += upperAlpha;
+    }
+
+    if (includeSymbols) {
+        characters += symbols;
+    }
+
+    let password = '';
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        password += characters[randomIndex];
+    }
+
+    return password;
 }
+
+generatePassword();
+
+
 
 // parse input from user and display generated password
 
