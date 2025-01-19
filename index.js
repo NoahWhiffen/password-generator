@@ -7,11 +7,19 @@
 const program = require('process'); 
 const arguments = process.argv.slice(2); 
 
+// All possible characters for passwords.
 const alpha = 'abcdefghijklmnopqrstuvwxyz';
 const numbers = '0123456789';
 const symbols = '!@#$%^&*()_-+=;:?.,<>';
 const upperAlpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
+// Default values for flags.
+let length = 8;
+let includeNumbers = false;
+let includeUpper = false;
+let includeSymbols = false;
+
+// Function for password generation.
 function generatePassword(length, includeNumbers, includeUpper, includeSymbols) {
     let characters = alpha;
 
@@ -40,10 +48,7 @@ generatePassword();
 
 
 
-// parse input from user and display generated password
+// accept flags through command line
 
 // error handling for invalid input
 
-// Allow user to include numbers, uppercase, or symbols using flags such as --numbers, --uppercase, == symbols
-
-// Update function to include flags
