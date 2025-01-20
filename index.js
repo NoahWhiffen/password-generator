@@ -10,7 +10,6 @@ const alpha = 'abcdefghijklmnopqrstuvwxyz';
 const numbers = '0123456789';
 const symbols = '!@#$%^&*()_-+=;:?.,<>';
 const upperAlpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const validOptions = ['length', 'numbers', 'uppercase', 'symbols'];
 
 // Default values for flags.
 let length = 8;
@@ -23,7 +22,7 @@ const helpMessage = `
  -- Password Generator --
 
 Usage:
-  node generatePassword.js [options]
+  node index.js [options]
 
 Options:
   --length <number>    Set the length of the password (default is 8)
@@ -32,7 +31,7 @@ Options:
   --symbols            Include symbols in the password
 
 Example:
-  node generatePassword.js --length 12 --numbers --uppercase --symbols
+  node index.js --length 12 --numbers --uppercase --symbols
   This will generate a password with 12 characters, including numbers, uppercase letters, and symbols.
 `;
 
@@ -57,27 +56,33 @@ function generatePassword(length, includeNumbers, includeUpper, includeSymbols) 
         const randomIndex = Math.floor(Math.random() * characters.length);
         password += characters[randomIndex];
     }
-    // Need to add these features on a seperate branch!
 
     return password;
 }
 
-// Display help message.
-
 // Parse CLI arguments and set flags.
-arguments.forEach((arg, index) => {
-    if (arg === '--length' && arguments[index + 1] && !isNaN(arguments[index + 1]) && Number(arguments[index + 1]) > 0) {
-        length = parseInt(arguments[index + 1], 10);
+for (let i = 2; i < process.argv.length; i++) { //Manually skip the files at the beginning of the array
+    const arg = process.argv[i];
+
+    if (arg === '--length') {
+        const lengthValue = process.argv[i + 1]; // Grab the next argument
+        if (lengthValue && !isNaN(lengthValue) && Number(lengthValue) > 0) {
+            length = parseInt(lengthValue, 10);
+            i++; // Skip the next value since we already processed it
+        } else {
+            console.log('Invalid or missing value for --length');
+            process.exit(1);
+        }
     } 
     else if (arg === '--numbers') {
         includeNumbers = true;
     } 
     else if (arg === '--uppercase') {
         includeUpper = true;
-    } 
+    }
     else if (arg === '--symbols') {
         includeSymbols = true;
-    } 
+    }
     else if (arg === '--help') {
         console.log(helpMessage);
         process.exit(0);
@@ -87,7 +92,7 @@ arguments.forEach((arg, index) => {
         console.log(helpMessage);
         process.exit(1);
     }
-});
+}
 
 // Generate and display the password.
 const password = generatePassword(length, includeNumbers, includeUpper, includeSymbols);
