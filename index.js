@@ -18,6 +18,24 @@ let includeNumbers = false;
 let includeUpper = false;
 let includeSymbols = false;
 
+// Help message.
+const helpMessage = `
+ -- Password Generator --
+
+Usage:
+  node generatePassword.js [options]
+
+Options:
+  --length <number>    Set the length of the password (default is 8)
+  --numbers            Include numbers in the password
+  --uppercase          Include uppercase letters in the password
+  --symbols            Include symbols in the password
+
+Example:
+  node generatePassword.js --length 12 --numbers --uppercase --symbols
+  This will generate a password with 12 characters, including numbers, uppercase letters, and symbols.
+`;
+
 // Function for password generation.
 function generatePassword(length, includeNumbers, includeUpper, includeSymbols) {
     let characters = alpha;
@@ -47,40 +65,30 @@ function generatePassword(length, includeNumbers, includeUpper, includeSymbols) 
 // Display help message.
 
 // Parse CLI arguments and set flags.
-
 arguments.forEach((arg, index) => {
-    if (arg === '--length' && arguments[index + 1]) {
+    if (arg === '--length' && arguments[index + 1] && !isNaN(arguments[index + 1]) && Number(arguments[index + 1]) > 0) {
         length = parseInt(arguments[index + 1], 10);
     } 
-    
     else if (arg === '--numbers') {
         includeNumbers = true;
     } 
-    
     else if (arg === '--uppercase') {
         includeUpper = true;
     } 
-    
     else if (arg === '--symbols') {
         includeSymbols = true;
     } 
-    
+    else if (arg === '--help') {
+        console.log(helpMessage);
+        process.exit(0);
+    } 
     else {
         console.log(`Invalid flag or value: ${arg}`);
+        console.log(helpMessage);
+        process.exit(1);
     }
 });
-
-// Error handling for invalid length value
-if (isNaN(length) || length <= 0) {
-    console.log("Please provide a valid length greater than 0 using -l <length>.");
-    process.exit(1);
-}
 
 // Generate and display the password.
 const password = generatePassword(length, includeNumbers, includeUpper, includeSymbols);
 console.log("Generated Password:", password);
-
-// accept flags through command line
-
-// error handling for invalid input
-
