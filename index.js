@@ -1,6 +1,6 @@
 //         QAP 1 - Term 3
 // Author: Noah Whiffen - SD12
-// Dates:  January 17th, 2025 - ?
+// Dates:  January 17th, 2025 - January 21st, 2025
 
 const program = require('process'); 
 const arguments = process.argv.slice(2); // Slice off node and script name.
