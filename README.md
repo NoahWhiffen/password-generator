@@ -17,3 +17,5 @@ The above flags will decide the length of your password, add symbols, add upperc
 
 Disclaimer: I am not responsible for any password loss, or any security breaches due to use of any of these passwords. This was an assignment for school and not
 actually intended to create "strong passwords" (whatever that entails).
+
+I hope you enjoy my program!
